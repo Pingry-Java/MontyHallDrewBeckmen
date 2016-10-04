@@ -101,10 +101,10 @@ public class MontyHall
 	
 	/**
 	 * This method determines the final door reflecting any switches the user might have made 
-	 * @param whether or not the user wanted to switch
-	 * @param the door user originally picked
-	 * @param the door revealed with goat behind it
-	 * @return the final door reflecting all changes
+	 * @param switchDecision - whether or not the user wanted to switch
+	 * @param userDoor - the door user originally picked
+	 * @param goatDoor - the door revealed with goat behind it
+	 * @return finalDoor - the final door reflecting all changes
 	 */
 	public static int findFinalDoor(boolean switchDecision, int userDoor, int goatDoor)
 	{
