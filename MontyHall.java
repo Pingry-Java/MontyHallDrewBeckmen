@@ -1,7 +1,19 @@
 import java.util.Scanner;
 
+/**
+ * This class simulates the Monty Hall problem. 
+ * @author Drew Beckmen
+ * @version 1.0
+ */
+
 public class MontyHall
 {
+	/**
+	 * Main method calls other methods for better abstraction 
+	 * Walks user through the Monty Hall problem. 
+	 * @param args
+	 * Does not return anything as it is main method
+	 */
 	public static void main(String[] args)
 	{
 		
@@ -9,6 +21,7 @@ public class MontyHall
 		
 		//Make sure to cast double to int
 		int carDoor = (int) (Math.random() * 3 + 1);
+
 		
 		//Ask the user for a door
 		int userDoor = getDoor();
@@ -21,18 +34,8 @@ public class MontyHall
 		boolean switchDecision = askUserSwitch();
 		
 		//Get the final user door
-		int finalDoor = 0; //Define beforehand
+		int finalDoor = findFinalDoor(switchDecision, userDoor, goatDoor);
 		
-		if (switchDecision == false)
-			finalDoor = userDoor;
-		else
-		{
-			for (int x = 1; x<=3; x ++)
-			{
-				if (x != goatDoor && x != userDoor)
-					finalDoor = x; 
-			}
-		}
 		
 		//Tell them if they win or not
 		if (finalDoor == carDoor)
@@ -42,9 +45,14 @@ public class MontyHall
 	}
 	
 	
+	/**
+	 * This method asks the user to choose a door 
+	 * No parameters
+	 * @return userDoor - the door that the user selects
+	 */
 	public static int getDoor()
 	{	
-		//Create Scanner
+		//Create Scanner (MUST DO IT IN EACH METHOD)
 		Scanner keyboard = new Scanner(System.in);
 		
 		//Get user door
@@ -54,6 +62,12 @@ public class MontyHall
 		return userDoor;
 	}
 	
+	/**
+	 * This method finds the door the doesn't have the car and that the user hasn't picked
+	 * @param carLocation - the door that the car is behind
+	 * @param userPick - the door the user picked
+	 * @return goatDoor - the door that has a goat behind it
+	 */
 	public static int showGoat(int carLocation, int userPick)
 	{
 		int goatDoor = 0; //Define beforehand
@@ -65,6 +79,12 @@ public class MontyHall
 		return goatDoor;
 	}
 	
+	/**
+	 * This method asks the user if they want to switch
+	 * Returns booleans true for yes and false for no
+	 * No parameters
+	 * @return boolean whether or not user wants to switch 
+	 */
 	public static boolean askUserSwitch()
 	{
 		//Create Scanner
@@ -77,5 +97,29 @@ public class MontyHall
 			return true;
 		else
 			return false;
+	}
+	
+	/**
+	 * This method determines the final door reflecting any switches the user might have made 
+	 * @param whether or not the user wanted to switch
+	 * @param the door user originally picked
+	 * @param the door revealed with goat behind it
+	 * @return the final door reflecting all changes
+	 */
+	public static int findFinalDoor(boolean switchDecision, int userDoor, int goatDoor)
+	{
+		int finalDoor = 0; //Define beforehand
+		
+		if (switchDecision == false)
+			finalDoor = userDoor;
+		else
+		{
+			for (int x = 1; x<=3; x ++)
+			{
+				if (x != goatDoor && x != userDoor)
+					finalDoor = x; 
+			}
+		}
+		return finalDoor;	
 	}
 }
