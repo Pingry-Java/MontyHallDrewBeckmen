@@ -12,10 +12,27 @@ public class MontyHall
 	 * Main method calls other methods for better abstraction 
 	 * Walks user through the Monty Hall problem. 
 	 * @param args
-	 * Does not return anything as it is main method
+	 *
 	 */
 	public static void main(String[] args)
 	{
+		//Test whether or not the user has passed in an argument
+		if (args.length == 0) 
+			interactiveGame();
+		else
+		{
+			//TODO: write the simulation part
+		}
+	}
+
+	/**
+	 * Simulates a Monty Hall game as played by the user
+	 */
+	 
+	//Creating new method that holds main program of interactive game
+	public static void interactiveGame()
+	{
+			
 		
 		System.out.println("Hello! Welcome to the Monty Hall Game! Hopefully you win a car today!");
 		
