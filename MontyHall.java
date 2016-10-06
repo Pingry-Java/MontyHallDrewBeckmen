@@ -21,14 +21,79 @@ public class MontyHall
 			interactiveGame();
 		else
 		{
-			//TODO: write the simulation part
+			//figure out how many sims to run
+			int numberSims = Integer.parseInt(args[0]);
+			System.out.println("Going to run " + numberSims + " Simulations.");
+			
+			simulateGame(numberSims);
 		}
 	}
 
 	/**
-	 * Simulates a Monty Hall game as played by the user
+	 * This method will carry out the simulation according to inputted number of times.
+	 * @param numTimes - number of times to run the simulation
 	 */
-	 
+	public static void simulateGame(int numTimes)
+	{
+		//Variables to keep track of won games and if switched
+		int swapGames = 0;
+		int swapWins  = 0;
+		int stayGames = 0;
+		int stayWins  = 0;
+		
+		int userDoor; //MUST DO THIS OUTSIDE OF LOOP
+		boolean swapOrStay; 
+		boolean result; 
+		while (numTimes > 0)
+		{
+			userDoor = (int) (Math.random() * 3 + 1);
+			swapOrStay = Math.random() > 0.5; // Generate a random boolean. true half of time and false other half
+			result = simulateSingleGame(userDoor, swapOrStay);
+			
+			if  (swapOrStay) {
+				swapGames++;
+				if (result){
+					swapWins++;
+				}	
+			}
+			else {
+				stayGames++;
+				if (result){
+					stayWins++;
+				}
+			}
+			numTimes--;
+		}
+		double swapSuccessRate = (double) swapWins / swapGames;
+		double staySuccessRate = (double) stayWins / stayGames;
+		
+		System.out.println("You won " + swapSuccessRate + " of the games when you swapped.");
+		System.out.println("You won " + staySuccessRate + " of the games when you stayed.");
+	}
+	
+	/**
+	 * Simulates a single game of Monty Hall
+	 * @param userDoor - the door the user wants to play
+	 * @param swapOrStay - whether the user wants to swap doors or keep the same door
+	 * @return Whether the user wins a car
+	 */	
+	public static boolean simulateSingleGame(int userDoor, boolean swapOrStay)
+	{
+		//Choose a random car door
+		int carDoor = (int) (Math.random() * 3 + 1);
+		
+		//Open a goat door
+		int revealDoor = showGoat(carDoor, userDoor);
+		
+		// Swap if necessary
+		if (swapOrStay){
+			userDoor = findFinalDoor(swapOrStay, userDoor, revealDoor);
+		}
+		
+		// Return whether they won
+		return userDoor == carDoor; //returns a boolean
+	}
+ 
 	//Creating new method that holds main program of interactive game
 	public static void interactiveGame()
 	{
