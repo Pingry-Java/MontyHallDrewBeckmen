@@ -64,11 +64,27 @@ public class MontyHall
 			}
 			numTimes--;
 		}
-		double swapSuccessRate = (double) swapWins / swapGames;
-		double staySuccessRate = (double) stayWins / stayGames;
+	
+		//Declare variables
+		double swapSuccessRate;
+		double staySuccessRate;
 		
-		System.out.println("You won " + swapSuccessRate + " of the games when you swapped.");
-		System.out.println("You won " + staySuccessRate + " of the games when you stayed.");
+		//Prevent division by zero 
+		if (swapGames > 0){
+			swapSuccessRate = (double) swapWins / swapGames;
+			System.out.println("You won " + swapSuccessRate + " of the games when you swapped.");
+		}
+		else
+			System.out.println("The computer never played a game in which it chose to swap doors.");
+		if (stayGames > 0){
+			staySuccessRate = (double) stayWins / stayGames;
+			System.out.println("You won " + staySuccessRate + " of the games when you stayed.");
+		}
+		else
+			System.out.println("The computer never played a game in which it chose to stay with same door.");
+		
+		
+		
 	}
 	
 	/**
